@@ -1,4 +1,3 @@
-#W
 #Please read the README file before assessing
 
 #Importing Libraries
@@ -9,6 +8,8 @@ tess.pytesseract.tesseract_cmd = r'C:\Users\Omar Bakr\AppData\Local\Programs\Tes
 from PIL import Image
 import time
 from twilio.rest import Client
+import json
+import requests
 
 # Your Account SID from twilio.com/console
 account_sid = "ACf083672641deb03941d505694edca2da"
@@ -75,18 +76,19 @@ while calledName == False:
         # push = pb.push_note('Come back to class you fucking donkey',text)
         print("Found")
         calledName = True
-        # message = client.messages.create(
-        #     to="+16475499325", 
-        #     from_="+16463511854",
-        #     body="You've been called in your meet")
+        #The Twilio api that allows to make phone calls and send sms messages
+        message = client.messages.create(
+            to="+16475499325", 
+            from_="+16463511854",
+            body="You've been called in your meet")
 
-        # print(message.sid)
+        print(message.sid)
 
-        # call = client.calls.create(
-        #     twiml='<Response><Say>Hello</Say></Response>',
-        #     to="+16475499325", 
-        #     from_="+16463511854",
-        # )
+        call = client.calls.create(
+            twiml='<Response><Say>Hello</Say></Response>',
+            to="+16475499325", 
+            from_="+16463511854",
+        )
         break
 
 
@@ -126,3 +128,19 @@ for i in range(len(t)):
         f.write('.\n')
 
 f.close()
+
+#Google Drive API that allows us to uplpoad the txt file to google drive
+headers = {"Authorization": "Bearer ya29.a0ARrdaM9axU5JAp7Yy7HyIzqYhF9k5oM1bE4GMLrLvlFgebhfxfEaGSjZdf0BRXoRNzAWiIzWOOu-Lyz6z8N0fL1yyP5i7z2_craVdGJf44T_wCMOAGsEmEHnkVxepT6vx4CY41b_W-9dVrxNKZO2Bwh8dxRX"}
+para = {
+    "name": "sample.txt",
+}
+files = {
+    'data': ('metadata', json.dumps(para), 'application/json; charset=UTF-8'),
+    'file': open("./test.txt", "rb")
+}
+r = requests.post(
+    "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+    headers=headers,
+    files=files
+)
+print(r.text)
