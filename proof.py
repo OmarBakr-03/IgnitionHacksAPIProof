@@ -71,9 +71,7 @@ while calledName == False:
     # count = 1
 
     if word in text:
-        # print("found on line", count)
-        # pb = PushBullet(API_KEY)
-        # push = pb.push_note('Come back to class you fucking donkey',text)
+
         print("Found")
         calledName = True
         #The Twilio api that allows to make phone calls and send sms messages
@@ -90,29 +88,6 @@ while calledName == False:
             from_="+16463511854",
         )
         break
-
-
-# print(total)
-
-
-
-
-
-
-
-
-# lines = filter(lambda x: not x.isspace(), lines)
-# file = open("output.txt","w")
-# file.write("".join(lines))
-# file.close()
-
-# print(userCurrent)
-
-
-
-#print(text[0:4])
-
-# print(userCurrent)
 
 asdf = []
 for v in range(len(total)):
